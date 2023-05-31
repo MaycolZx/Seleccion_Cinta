@@ -1,20 +1,33 @@
+#include <algorithm>
+#include <cstdio>
 #include <iostream>
 #include <vector>
 using namespace std;
 
 void saveTape() {
   vector<int> iTape = {5, 10, 3};
-  int resultado;
-  int orden = iTape.size();
-  for (int i = 0; i < orden; i++) {
-    resultado = 0;
-    for (int j = 1; j < orden + 1; j++) {
-      for (int w = 0; w < j; w++) {
-        resultado += iTape[w];
+  vector<int> values;
+  int rangoR = iTape.size();
+  int resultadoR, valueR = 0;
+  for (int i = 1; i < rangoR + 1; ++i) {
+    values.push_back(i);
+  }
+  do {
+    resultadoR = 0;
+    for (int i = 1; i <= rangoR; i++) {
+      for (int j = 0; j < i; j++) {
+        resultadoR += iTape[values[j] - 1];
       }
     }
-    cout << resultado << endl;
-  }
+    if (valueR == 0) {
+      valueR = resultadoR;
+    }
+    if (resultadoR < valueR) {
+      valueR = resultadoR;
+    }
+    // cout << resultadoR << endl;
+  } while (std::next_permutation(values.begin(), values.end()));
+  printf("El resultado es: %d", valueR);
 }
 
 int main() {
